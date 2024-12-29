@@ -46,19 +46,26 @@ async function scrapeGames() {
     console.log('Starting Steam games scraper...');
     const currentGames = await getCurrentGames();
     const currentIds = new Set(currentGames.map(g => g.id));
-    const newGames = [];
+    let gamesUpdated = false;
 
     for (const tag of TYCOON_TAGS) {
         console.log(`Searching for games with tag: ${tag}`);
         const games = await fetchSteamGames(tag);
         
         for (const game of games) {
-            if (!currentIds.has(game.id.toString())) {
+            if (!currentIds.has(game.id?.toString())) {
                 const details = await getGameDetails(game.id);
                 if (details && details.type === 'game') {
                     const formattedGame = formatGameData(details);
-                    newGames.push(formattedGame);
+                    currentGames.push(formattedGame);
                     currentIds.add(formattedGame.id);
+                    gamesUpdated = true;
+                    
+                    // Mark as new and update UI immediately
+                    formattedGame.isNew = true;
+                    console.log(`Added new game: ${formattedGame.title}`);
+                    window.updateLoadingStatus(`Found new game: ${formattedGame.title}`);
+                    await updateGames(currentGames);
                 }
                 // Rate limiting
                 await new Promise(resolve => setTimeout(resolve, 1000));
@@ -66,14 +73,11 @@ async function scrapeGames() {
         }
     }
 
-    if (newGames.length > 0) {
-        const updatedGames = [...currentGames, ...newGames];
-        await updateGames(updatedGames);
-        console.log(`Added ${newGames.length} new games`);
-        return updatedGames;
+    if (!gamesUpdated) {
+        console.log('No new games found');
+        window.updateLoadingStatus('No new games found');
     }
     
-    console.log('No new games found');
     return currentGames;
 }
 
@@ -88,7 +92,11 @@ async function getCurrentGames() {
 }
 
 async function updateGames(games) {
+    // Sort games by release date (newest first)
+    games.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+    
     localStorage.setItem('lastScrapeTime', Date.now().toString());
+    localStorage.setItem('gamesCache', JSON.stringify(games));
     displayGames(games);
 }
 
@@ -99,22 +107,23 @@ function shouldScrape() {
 
 // Initialize scraper
 document.addEventListener('DOMContentLoaded', async () => {
-    let games = await getCurrentGames();
-    
+    const loadingIndicator = document.getElementById('loading-indicator');
+    let games;
+
     if (shouldScrape()) {
-        console.log('Starting initial scrape...');
+        if (loadingIndicator) loadingIndicator.style.display = 'block';
+        console.log('Starting scrape...');
         games = await scrapeGames();
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
     } else {
         console.log('Using cached games data');
+        games = JSON.parse(localStorage.getItem('gamesCache') || '[]');
     }
     
     displayGames(games);
 });
 
-// Function to display games (to be implemented in your main script)
 function displayGames(games) {
-    // This function should be implemented in your main script.js
-    // It will receive the games array and update the UI
     if (window.updateGamesList) {
         window.updateGamesList(games);
     }
