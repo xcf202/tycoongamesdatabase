@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - Tycoon Games Database</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Tycoon Games Database</h1>
+            <p>Game Details</p>
+        </div>
+        <nav>
+            <a href="./">Home</a>
+            <a href="./games.html">All Games</a>
+            <a href="./submit.html">Submit Game</a>
+            <a href="./about.html">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="game-details" class="game-details-section">
+            <div class="game-details-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading game details...</p>
+                </div>
+                <!-- Game details will be dynamically populated here -->
+            </div>
+            <div class="back-button-container">
+                <button onclick="window.location.href='./games.html'" class="btn back-btn">
+                    ← Back to Games
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Tycoon Games Database. Discover and share your favorite tycoon games!</p>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script src="./game-details-script.js"></script>
+</body>
+</html>

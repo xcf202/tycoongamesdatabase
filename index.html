@@ -3,52 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tycoon Games Database</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Tycoon Games Database - Home</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <header>
-        <h1>Tycoon Games Database</h1>
+        <div class="header-content">
+            <h1>Tycoon Games Database</h1>
+            <p id="game-count">Loading Games...</p>
+        </div>
         <nav>
-            <button id="all-games-btn">All Games</button>
-            <button id="free-games-btn">Free Games</button>
-            <button id="paid-games-btn">Paid Games</button>
-            <button id="released-games-btn">Released Games</button>
-            <button id="unreleased-games-btn">Unreleased Games</button>
+            <a href="./" class="active">Home</a>
+            <a href="./games.html">All Games</a>
+            <a href="./submit.html">Submit Game</a>
+            <a href="./about.html">About</a>
         </nav>
     </header>
 
     <main>
-        <section id="games-list">
-            <!-- Games will be dynamically populated here -->
+        <section id="featured-games">
+            <h2>Featured Tycoon Games</h2>
+            <div id="featured-games-list" class="featured-grid">
+                <!-- Featured games will be dynamically populated here -->
+            </div>
         </section>
 
-        <section id="submit-game">
-            <h2>Submit a Tycoon Game</h2>
-            <form id="game-submission-form">
-                <input type="text" id="game-name" placeholder="Game Name" required>
-                <input type="text" id="game-developer" placeholder="Developer" required>
-                <select id="game-type" required>
-                    <option value="">Select Game Type</option>
-                    <option value="free">Free</option>
-                    <option value="paid">Paid</option>
-                </select>
-                <select id="game-status" required>
-                    <option value="">Select Game Status</option>
-                    <option value="released">Released</option>
-                    <option value="unreleased">Unreleased</option>
-                </select>
-                <input type="url" id="game-link" placeholder="Steam or Store Link">
-                <textarea id="game-description" placeholder="Game Description"></textarea>
-                <button type="submit">Submit Game</button>
-            </form>
+        <section id="game-categories">
+            <h2>Game Categories</h2>
+            <div class="category-grid">
+                <a href="./games.html?filter=free" class="category-card">
+                    <h3>Free Games</h3>
+                    <p>Explore free-to-play tycoon games</p>
+                </a>
+                <a href="./games.html?filter=paid" class="category-card">
+                    <h3>Paid Games</h3>
+                    <p>Premium tycoon game experiences</p>
+                </a>
+                <a href="./games.html?filter=released" class="category-card">
+                    <h3>Released Games</h3>
+                    <p>Currently available tycoon games</p>
+                </a>
+                <a href="./games.html?filter=unreleased" class="category-card">
+                    <h3>Upcoming Games</h3>
+                    <p>Tycoon games coming soon</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="all-games">
+            <h2>All Tycoon Games</h2>
+            <div id="all-games-list" class="games-grid">
+                <!-- All games will be dynamically populated here -->
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Tycoon Games Database</p>
+        <p>&copy; 2023 Tycoon Games Database. Discover and share your favorite tycoon games!</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="./config.js"></script>
+    <script src="./home-script.js"></script>
 </body>
 </html>

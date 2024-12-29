@@ -1,0 +1,76 @@
+{
+    "games": [
+        {
+            "id": "1",
+            "name": "Game Dev Tycoon",
+            "developer": "Greenheart Games",
+            "type": "paid",
+            "status": "released",
+            "description": "Create your own game development company and make hit games. Start in a garage in the 80s and work your way up to a major game development studio.",
+            "steamLink": "https://store.steampowered.com/app/239820/Game_Dev_Tycoon/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/239820/header.jpg",
+            "platform": ["Windows", "Mac", "Linux"],
+            "genre": ["Simulation", "Business", "Management"]
+        },
+        {
+            "id": "2",
+            "name": "Planet Coaster",
+            "developer": "Frontier Developments",
+            "type": "paid",
+            "status": "released",
+            "description": "Build the theme park of your dreams. Plan and design incredible coaster parks with unparalleled attention to detail and manage your park in a truly living world.",
+            "steamLink": "https://store.steampowered.com/app/493340/Planet_Coaster/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/493340/header.jpg",
+            "platform": ["Windows"],
+            "genre": ["Simulation", "Building", "Management"]
+        },
+        {
+            "id": "3",
+            "name": "OpenTTD",
+            "developer": "OpenTTD Team",
+            "type": "free",
+            "status": "released",
+            "description": "An open source simulation game based on Transport Tycoon Deluxe. Build a transportation empire on land, sea and in the air.",
+            "steamLink": "https://store.steampowered.com/app/1536610/OpenTTD/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/1536610/header.jpg",
+            "platform": ["Windows", "Mac", "Linux"],
+            "genre": ["Simulation", "Strategy", "Transportation"]
+        },
+        {
+            "id": "4",
+            "name": "Two Point Hospital",
+            "developer": "Two Point Studios",
+            "type": "paid",
+            "status": "released",
+            "description": "Build your hospital, cure diseases, and manage your staff in this spiritual successor to Theme Hospital.",
+            "steamLink": "https://store.steampowered.com/app/535930/Two_Point_Hospital/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/535930/header.jpg",
+            "platform": ["Windows", "Mac", "Linux"],
+            "genre": ["Simulation", "Management", "Comedy"]
+        },
+        {
+            "id": "5",
+            "name": "Cities: Skylines",
+            "developer": "Colossal Order",
+            "type": "paid",
+            "status": "released",
+            "description": "Build the city of your dreams. Plan road networks, manage public services, and watch your city grow from a small town to a bustling metropolis.",
+            "steamLink": "https://store.steampowered.com/app/255710/Cities_Skylines/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg",
+            "platform": ["Windows", "Mac", "Linux"],
+            "genre": ["Simulation", "City Building", "Management"]
+        },
+        {
+            "id": "6",
+            "name": "Prison Architect",
+            "developer": "Introversion Software",
+            "type": "paid",
+            "status": "released",
+            "description": "Build and manage a maximum security prison. Keep your inmates happy and your prison running smoothly while dealing with riots, escapes, and more.",
+            "steamLink": "https://store.steampowered.com/app/233450/Prison_Architect/",
+            "image": "https://cdn.akamai.steamstatic.com/steam/apps/233450/header.jpg",
+            "platform": ["Windows", "Mac", "Linux"],
+            "genre": ["Simulation", "Management", "Strategy"]
+        }
+    ]
+}
