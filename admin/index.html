@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tycoon Games Database - Admin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .admin-panel {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 24px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel h2 {
+            margin: 0 0 24px;
+            color: #212121;
+        }
+
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .admin-form input {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .admin-form button {
+            padding: 12px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .admin-form button:hover {
+            background: #1976d2;
+        }
+
+        .admin-form button:disabled {
+            background: #bdbdbd;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .help-text {
+            margin-top: 8px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .help-text a {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Tycoon Games Database</h1>
+            <nav>
+                <a href="../index.html">Home</a>
+                <a href="../games.html">Games</a>
+                <a href="../about.html">About</a>
+                <a href="index.html" class="active">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-panel">
+            <h2>Admin Panel</h2>
+            <form class="admin-form" id="adminForm">
+                <input type="password" id="apiKey" placeholder="Enter GitHub Personal Access Token" required>
+                <p class="help-text">
+                    Need a token? <a href="https://github.com/settings/tokens/new?scopes=repo&description=Tycoon%20Games%20Database%20Admin" target="_blank">Create one here</a> with 'repo' scope.
+                </p>
+                <button type="submit" id="scrapeButton">Trigger Steam Scraper</button>
+            </form>
+            <div id="status" class="status" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('adminForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const button = document.getElementById('scrapeButton');
+            const status = document.getElementById('status');
+            const apiKey = document.getElementById('apiKey').value;
+
+            button.disabled = true;
+            button.textContent = 'Triggering Scraper...';
+            status.style.display = 'none';
+
+            try {
+                const response = await fetch(
+                    'https://api.github.com/repos/xcf202/tycoongamesdatabase/actions/workflows/scraper.yml/dispatches',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Authorization': `Bearer ${apiKey}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ref: 'main',
+                            inputs: {
+                                reason: 'Manual trigger from admin panel'
+                            }
+                        })
+                    }
+                );
+
+                if (response.status === 204) {
+                    status.textContent = 'Scrape triggered successfully! Check GitHub Actions for progress.';
+                    status.className = 'status success';
+                } else {
+                    const data = await response.json();
+                    status.textContent = `Error: ${data.message || 'Failed to trigger scrape'}`;
+                    status.className = 'status error';
+                }
+            } catch (error) {
+                status.textContent = 'Error connecting to GitHub API';
+                status.className = 'status error';
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Trigger Steam Scraper';
+                status.style.display = 'block';
+            }
+        });
+    </script>
+
+    <footer>
+        <p>© 2023 Tycoon Games Database</p>
+    </footer>
+</body>
+</html>
