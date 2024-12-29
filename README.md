@@ -7,6 +7,8 @@ Welcome to the Tycoon Games Database, a simple and growing collection of tycoon 
 - **Game Listings**: Browse through a list of tycoon games with detailed information.
 - **Responsive Design**: The site is designed to be user-friendly on both desktop and mobile devices.
 - **Dynamic Content**: Games are loaded dynamically from a JSON database.
+- **Steam Images**: Game cover images are pulled directly from Steam for accurate and up-to-date visuals.
+- **Centered Layout**: The site's layout is centered and aligned for better readability and aesthetics.
 
 ## Getting Started
 

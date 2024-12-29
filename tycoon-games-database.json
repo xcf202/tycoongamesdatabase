@@ -9,7 +9,7 @@
         "rating": 4.5,
         "features": ["Multiplayer", "In-app Purchases"],
         "tags": ["City Building", "Simulation", "Free to Play"],
-        "cover_image": "default-game-image.svg",
+        "cover_image": "https://steamcdn-a.akamaihd.net/steam/apps/375610/capsule_sm_120.jpg",
         "description": "Build and manage your own city in this popular mobile city-building game."
     },
     {
@@ -22,7 +22,7 @@
         "rating": 4.7,
         "features": ["Multiplayer", "Singleplayer"],
         "tags": ["City Building", "Strategy", "Historical"],
-        "cover_image": "default-game-image.svg",
+        "cover_image": "https://steamcdn-a.akamaihd.net/steam/apps/242980/capsule_sm_120.jpg",
         "description": "Manage a medieval town and ensure its survival in this challenging city-building game."
     },
     {
@@ -35,7 +35,7 @@
         "rating": 4.8,
         "features": ["Multiplayer", "Singleplayer"],
         "tags": ["Factory Management", "Simulation", "Modding"],
-        "cover_image": "default-game-image.svg",
+        "cover_image": "https://steamcdn-a.akamaihd.net/steam/apps/427520/capsule_sm_120.jpg",
         "description": "Build and automate your factory in this industrial simulation game."
     }
 ]

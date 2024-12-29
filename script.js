@@ -1,20 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event fired');
-
     const gamesGrid = document.getElementById('games-grid');
     const totalGamesElement = document.getElementById('total-games');
 
     fetch('tycoon-games-database.json')
-        .then(response => {
-            console.log('Response received:', response);
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log('Data loaded:', data);
             totalGamesElement.textContent = data.length;
             data.forEach(game => {
-                console.log('Processing game:', game);
-
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
 
@@ -53,6 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gameTags = document.createElement('p');
                 gameTags.textContent = `Tags: ${game.tags.join(', ')}`;
 
+                const wishlistButton = document.createElement('a');
+                wishlistButton.className = 'wishlist-button';
+                wishlistButton.textContent = 'Add to Steam Wishlist';
+                wishlistButton.href = `https://store.steampowered.com/app/${game.id}/?snr=1_5_9__400`;
+                wishlistButton.target = '_blank';
+
                 gameDetails.appendChild(gamePlatforms);
                 gameDetails.appendChild(gameGenres);
                 gameDetails.appendChild(gameReleaseDate);
@@ -60,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 gameDetails.appendChild(gameRating);
                 gameDetails.appendChild(gameFeatures);
                 gameDetails.appendChild(gameTags);
+                gameDetails.appendChild(wishlistButton);
 
                 gameCard.appendChild(gameCover);
                 gameCard.appendChild(gameTitle);
@@ -69,7 +68,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 gamesGrid.appendChild(gameCard);
             });
         })
-        .catch(error => {
-            console.error('Error loading games:', error);
-        });
+        .catch(error => console.error('Error loading games:', error));
 });

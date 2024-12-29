@@ -3,12 +3,16 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #007BFF;
     color: white;
     padding: 10px 0;
+    width: 100%;
 }
 
 .header-content {
@@ -32,12 +36,18 @@ nav a.active {
 
 main {
     padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .games-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
 }
 
 .game-card {
@@ -46,8 +56,9 @@ main {
     border-radius: 8px;
     margin: 10px;
     padding: 15px;
-    width: 300px;
+    width: 200px; /* Reduced width to fit more games */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .game-cover {
@@ -58,7 +69,7 @@ main {
 
 .game-card h3 {
     margin: 10px 0;
-    font-size: 1.2em;
+    font-size: 1em; /* Reduced font size */
 }
 
 .game-card p {
@@ -71,11 +82,28 @@ main {
 }
 
 footer {
-    background-color: #333;
+    background-color: #007BFF;
     color: white;
     text-align: center;
     padding: 10px 0;
-    position: fixed;
     width: 100%;
+    position: fixed;
     bottom: 0;
+}
+
+.wishlist-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wishlist-button:hover {
+    background-color: #0056b3;
 }
