@@ -1,12 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Function to update games list (called by scraper)
+window.updateGamesList = function(games) {
     const gamesGrid = document.getElementById('games-grid');
     const totalGamesElement = document.getElementById('total-games');
+    const loadingIndicator = document.getElementById('loading-indicator');
 
-    fetch('tycoon-games-database.json')
-        .then(response => response.json())
-        .then(data => {
-            totalGamesElement.textContent = data.length;
-            data.forEach(game => {
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+    }
+
+    if (totalGamesElement) {
+        totalGamesElement.textContent = games.length;
+    }
+
+    if (gamesGrid) {
+        gamesGrid.innerHTML = ''; // Clear existing games
+        games.forEach(game => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
 
@@ -81,6 +89,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 gamesGrid.appendChild(gameCard);
             });
-        })
-        .catch(error => console.error('Error loading games:', error));
+    }
+};
+
+// Add loading indicator
+document.addEventListener('DOMContentLoaded', () => {
+    const main = document.querySelector('main');
+    if (main) {
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loading-indicator';
+        loadingIndicator.style.cssText = `
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+        `;
+        loadingIndicator.textContent = 'Updating games database...';
+        main.appendChild(loadingIndicator);
+    }
 });
+
+// Show loading indicator during scraping
+const originalScrapeGames = window.scrapeGames;
+window.scrapeGames = async function() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'block';
+    }
+    try {
+        return await originalScrapeGames();
+    } finally {
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+    }
+};
