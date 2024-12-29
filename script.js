@@ -27,16 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gameDetails = document.createElement('div');
                 gameDetails.className = 'game-details collapsed';
 
-                const detailsHTML = `
-                    <p>Platforms: ${game.platforms.join(', ')}</p>
-                    <p>Genres: ${game.genres.join(', ')}</p>
-                    <p>Release Date: ${game.release_date}</p>
-                    <p>Price: $${game.price}</p>
-                    <p>Rating: ${game.rating}/5</p>
-                    <p>Features: ${game.features.join(', ')}</p>
-                    <p>Tags: ${game.tags.join(', ')}</p>
-                `;
-                gameDetails.innerHTML = detailsHTML;
+                const details = [
+                    { label: 'Platforms', value: game.platforms.join(', ') },
+                    { label: 'Genres', value: game.genres.join(', ') },
+                    { label: 'Release Date', value: game.release_date },
+                    { label: 'Price', value: `$${game.price}` },
+                    { label: 'Rating', value: `${game.rating}/5` },
+                    { label: 'Features', value: game.features.join(', ') },
+                    { label: 'Tags', value: game.tags.join(', ') }
+                ];
+
+                details.forEach(detail => {
+                    const p = document.createElement('p');
+                    p.textContent = detail.label;
+                    p.setAttribute('data-value', detail.value);
+                    gameDetails.appendChild(p);
+                });
 
                 const readMoreBtn = document.createElement('button');
                 readMoreBtn.className = 'read-more-btn';
@@ -53,12 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 wishlistButton.target = '_blank';
                 wishlistButton.rel = 'noopener noreferrer';
 
+                const gameContent = document.createElement('div');
+                gameContent.className = 'game-content';
+
+                const gameInfo = document.createElement('div');
+                gameInfo.className = 'game-info';
+                gameInfo.appendChild(gameTitle);
+                gameInfo.appendChild(gameDescriptionContainer);
+                gameInfo.appendChild(gameDetails);
+
+                const gameButtons = document.createElement('div');
+                gameButtons.className = 'game-buttons';
+                gameButtons.appendChild(readMoreBtn);
+                gameButtons.appendChild(wishlistButton);
+
+                gameContent.appendChild(gameInfo);
+                gameContent.appendChild(gameButtons);
+
                 gameCard.appendChild(gameCover);
-                gameCard.appendChild(gameTitle);
-                gameCard.appendChild(gameDescriptionContainer);
-                gameCard.appendChild(readMoreBtn);
-                gameCard.appendChild(gameDetails);
-                gameCard.appendChild(wishlistButton);
+                gameCard.appendChild(gameContent);
 
                 gamesGrid.appendChild(gameCard);
             });
