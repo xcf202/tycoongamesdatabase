@@ -18,52 +18,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gameTitle = document.createElement('h3');
                 gameTitle.textContent = game.title;
 
+                const gameDescriptionContainer = document.createElement('div');
+                gameDescriptionContainer.className = 'game-description';
                 const gameDescription = document.createElement('p');
                 gameDescription.textContent = game.description;
+                gameDescriptionContainer.appendChild(gameDescription);
 
                 const gameDetails = document.createElement('div');
-                gameDetails.className = 'game-details';
+                gameDetails.className = 'game-details collapsed';
 
-                const gamePlatforms = document.createElement('p');
-                gamePlatforms.textContent = `Platforms: ${game.platforms.join(', ')}`;
+                const detailsHTML = `
+                    <p>Platforms: ${game.platforms.join(', ')}</p>
+                    <p>Genres: ${game.genres.join(', ')}</p>
+                    <p>Release Date: ${game.release_date}</p>
+                    <p>Price: $${game.price}</p>
+                    <p>Rating: ${game.rating}/5</p>
+                    <p>Features: ${game.features.join(', ')}</p>
+                    <p>Tags: ${game.tags.join(', ')}</p>
+                `;
+                gameDetails.innerHTML = detailsHTML;
 
-                const gameGenres = document.createElement('p');
-                gameGenres.textContent = `Genres: ${game.genres.join(', ')}`;
-
-                const gameReleaseDate = document.createElement('p');
-                gameReleaseDate.textContent = `Release Date: ${game.release_date}`;
-
-                const gamePrice = document.createElement('p');
-                gamePrice.textContent = `Price: $${game.price}`;
-
-                const gameRating = document.createElement('p');
-                gameRating.textContent = `Rating: ${game.rating}/5`;
-
-                const gameFeatures = document.createElement('p');
-                gameFeatures.textContent = `Features: ${game.features.join(', ')}`;
-
-                const gameTags = document.createElement('p');
-                gameTags.textContent = `Tags: ${game.tags.join(', ')}`;
+                const readMoreBtn = document.createElement('button');
+                readMoreBtn.className = 'read-more-btn';
+                readMoreBtn.textContent = 'Read More';
+                readMoreBtn.addEventListener('click', () => {
+                    gameDetails.classList.toggle('collapsed');
+                    readMoreBtn.textContent = gameDetails.classList.contains('collapsed') ? 'Read More' : 'Show Less';
+                });
 
                 const wishlistButton = document.createElement('a');
                 wishlistButton.className = 'wishlist-button';
-                wishlistButton.textContent = 'Add to Steam Wishlist';
-                wishlistButton.href = `https://store.steampowered.com/app/${game.id}/?snr=1_5_9__400`;
+                wishlistButton.textContent = 'Add to Wishlist';
+                wishlistButton.href = `https://store.steampowered.com/app/${game.id}`;
                 wishlistButton.target = '_blank';
-
-                gameDetails.appendChild(gamePlatforms);
-                gameDetails.appendChild(gameGenres);
-                gameDetails.appendChild(gameReleaseDate);
-                gameDetails.appendChild(gamePrice);
-                gameDetails.appendChild(gameRating);
-                gameDetails.appendChild(gameFeatures);
-                gameDetails.appendChild(gameTags);
-                gameDetails.appendChild(wishlistButton);
+                wishlistButton.rel = 'noopener noreferrer';
 
                 gameCard.appendChild(gameCover);
                 gameCard.appendChild(gameTitle);
-                gameCard.appendChild(gameDescription);
+                gameCard.appendChild(gameDescriptionContainer);
+                gameCard.appendChild(readMoreBtn);
                 gameCard.appendChild(gameDetails);
+                gameCard.appendChild(wishlistButton);
 
                 gamesGrid.appendChild(gameCard);
             });
